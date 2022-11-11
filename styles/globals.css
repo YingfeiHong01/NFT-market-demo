@@ -25,6 +25,23 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+
+input{
+  color: var(--icons-color);
+}
+
+input::placeholder{
+  color: var(--icons-color);
+}
+
+textarea{
+  color: var(--icons-color);
+}
+
+textarea::placeholder{
+  color: var(--icons-color);
+}
+
 a {
   color: inherit;
   text-decoration: none;

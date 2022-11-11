@@ -71,6 +71,10 @@
     font-size: 2rem;
 }
 
+.subscribe_box_right_img{
+    width:100%;
+    height:auto;
+}
 @media screen and (min-device-width: 320px) and (max-device-width: 768px){
     .subscribe_box{
         width: 90%;

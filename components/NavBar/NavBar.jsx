@@ -1,17 +1,22 @@
-import React, {useState,useEffect} from 'react';
+import React, { useState, useEffect, useContext } from "react";
 import Image from "next/image";
-import Link  from 'next/link';
+import { DiJqueryLogo } from "react-icons/di";
+//----IMPORT ICON
+import { MdNotifications } from "react-icons/md";
+import { BsSearch } from "react-icons/bs";
+import { CgMenuLeft, CgMenuRight } from "react-icons/cg";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
-import {MdNotifications} from 'react-icons/md';
-import {BsSearch} from "react-icons/bs";
-import {CgMenuLeft, CgMenuRight} from "react-icons/cg";
-
-
-import Style from './NavBar.module.css';
-import { Discover, HelpCenter, Notification, Profile, Sidebar } from './index';
-import {Button} from '../componentsindex';
-
+//INTERNAL IMPORT
+import Style from "./NavBar.module.css";
+import { Discover, HelpCenter, Notification, Profile, Sidebar } from "./index";
+import { Button, Error } from "../componentsindex";
 import images from "../../img";
+
+//IMPORT FROM SMART CONTRACT
+import { NFTMarketplaceContext } from "../../Context/NFTMarketplaceContext";
+import { convertCompilerOptionsFromJson } from "typescript";
 
 const NavBar = () => {
   const [discover, setDiscover] = useState(false);
@@ -20,23 +25,27 @@ const NavBar = () => {
   const [profile, setProfile] = useState(false);
   const [openSideMenu, setOpenSideMenu] = useState(false);
 
-  const openMenu = (e) => {
-    const btnText = e.target.innerText;
-    if (btnText == "Discover") {
+
+
+  const openDiscover = () => {
+    if (!discover) {
       setDiscover(true);
+      setNotification(false);
       setHelpcenter(false);
-      setNotification(false);
-      setProfile(false);
-    } else if (btnText == "Help Center") {
-      setDiscover(false);
-      setHelpcenter(true);
-      setNotification(false);
       setProfile(false);
     } else {
       setDiscover(false);
-      setHelpcenter(false);
+    }
+  };
+
+  const openHelpCenter = () => {
+    if (!helpcenter) {
+      setHelpcenter(true);
+      setDiscover(false);
       setNotification(false);
       setProfile(false);
+    } else {
+      setHelpcenter(false);
     }
   };
 
@@ -66,22 +75,33 @@ const NavBar = () => {
   const openSideBar = () => {
     if (!openSideMenu) {
       setOpenSideMenu(true);
+      setNotification(false);
+      setProfile(false);
     } else {
       setOpenSideMenu(false);
+
     }
   };
 
+  //SMART CONTRACT SECTION
+  const { currentAccount, connectWallet, openError } = useContext(
+    NFTMarketplaceContext
+  );
+  
+  // console.log(currentAccount);
   return (
     <div className={Style.navbar}>
       <div className={Style.navbar_container}>
         <div className={Style.navbar_container_left}>
           <div className={Style.logo}>
-            <Image 
-              src={images.logo} 
-              alt = "NFT Market Place"
-              width = {100}
-              height={100}
-            />
+            <a href = "/">
+              <Image 
+                src={images.logo} 
+                alt = "NFT Market Place"
+                width = {100}
+                height={100}
+              />
+            </a>
           </div>
           <div className={Style.navbar_container_left_box_input}>
             <div className={Style.navbar_container_left_box_input_box}>
@@ -92,10 +112,12 @@ const NavBar = () => {
         </div>
 
         {/* //END OF LEFT SECTION */}
+
+
         <div className={Style.navbar_container_right}>
           {/* DISCOVER MENU */}
           <div className={Style.navbar_container_right_discover}>
-            <p onClick={(e) => openMenu(e)}>Discover</p>
+            <p onClick={() => openDiscover()}>Discover</p>
             {discover &&(
               <div className={Style.navbar_container_right_discover_box}>
                 <Discover />
@@ -105,7 +127,7 @@ const NavBar = () => {
 
           {/* HELP CENTER MENU */}
           <div className={Style.navbar_container_right_help}>
-              <p onClick={(e) => openMenu(e)}>Help Center</p>
+              <p onClick={() => openHelpCenter()}>Help Center</p>
               {helpcenter && (
                 <div className={Style.navbar_container_right_help_box}>
                   <HelpCenter />
@@ -123,10 +145,15 @@ const NavBar = () => {
 
           {/* CREATE BUTTON SECTION */}
           <div className={Style.navbar_container_right_button}>
-        
-              <Button btnName="Create" handleClick={()=>{}}/>
-            
+            {currentAccount == "" ? (
+              <Button btnName="Connect" handleClick={() => connectWallet()} />
+            ) : (
+              <a href= "/uploadNFT">
+                <Button btnName="Create" handleClick={() => {}}/>
+              </a>
+            )}
           </div>
+
 
           {/* USER PROFILE */}
           <div className={Style.navbar_container_right_profile_box}>
@@ -158,6 +185,8 @@ const NavBar = () => {
         <div className={Style.sideBar}>
           <Sidebar
             setOpenSideMenu={setOpenSideMenu}
+            currentAccount={currentAccount}
+            connectWallet={connectWallet}
           />
         </div>
       )}

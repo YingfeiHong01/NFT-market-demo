@@ -1,4 +1,3 @@
-
 .heroSection{
     width: 80%;
     margin: 3rem auto;
@@ -19,9 +18,13 @@
     line-height: 1;
 }
 
-
 .heroSection_box_left p{
     margin-bottom:  2rem;
+}
+
+.heroSection_box_right_img{
+    width:100%;
+    height:auto;
 }
 
 @media screen and (max-width: 35em) {
@@ -45,3 +48,7 @@
         font-size: 3rem;
     }
 }
+
+
+
+

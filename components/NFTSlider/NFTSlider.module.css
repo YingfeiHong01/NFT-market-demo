@@ -1,10 +1,14 @@
+
+
 .NFTSlider_box{
     margin:  0 auto;
     width: 80%;
     padding-block: 8rem; 
+
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     align-items: center;
+    position:relative;
 }
 
 .NFTSlider_box_left{
@@ -16,12 +20,13 @@
     padding: 2rem;
     z-index: 1111;
     height: 90vh;
+    position: relative;
 }
-
 
 .NFTSlider_box_left h2{
     font-size: 3rem;
     line-height: 0;
+    position: relative;
 }
 
 .NFTSlider_box_right{
@@ -30,50 +35,56 @@
     padding: 1rem;
     background-color: var(--main-bg-color);
     border-radius: 2.5rem;
-    /* box-shadow: var(--box-shadow-2); */
-    box-shadow: var(--main-bg-color);
+    box-shadow: var(--box-shadow-2);
+    /* box-shadow: var(--main-bg-color); */
 }
-
 
 /* //CREATOR SECTION */
 .NFTSlider_box_left_creator{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     align-items: center;
+    position: relative;
 }
 
 .NFTSlider_box_left_creator_profile{
     display: flex;
     align-items: center;
     gap: 1rem;
+    position: relative;
 }
 
 .NFTSlider_box_left_creator_profile_img{
     border-radius: 50%;
+    position: relative;
 }
 
 .NFTSlider_box_left_creator_profile_info{
     line-height: 0;
+    position: relative;
 }
-
 
 .NFTSlider_box_left_creator_profile_info p{
     margin-bottom: -.7rem;
     margin-top: 1rem;
+    position: relative;
 }
 
 .NFTSlider_box_left_creator_collection{
     display: flex;
     align-items: center;
     gap: 1rem;
+    position: relative;
 }
 
 .NFTSlider_box_left_creator_collection_icon{
     font-size: 4rem;
+    position: relative;
 }
 
 .NFTSlider_box_left_creator_collection_info{
     line-height: 0;
+    position: relative;
 }
 
 .NFTSlider_box_left_bidding_box{
@@ -151,6 +162,8 @@
 
 .NFTSlider_box_right_box_img{
     border-radius: 2rem;
+    width:100%;
+    height:auto;
 }
 
 .NFTSlider_box_right_box_like{
@@ -167,16 +180,18 @@
     border-radius: 5rem;
 }
 
+
+
 @media screen and (max-width: 65em) {
     .NFTSlider_box{
         width: 90%;
         padding-top: 28rem;
         grid-template-columns: 1fr;
         gap: 1rem;
+  
     }
 
     .NFTSlider_box_left{
-        /* height: 120vh; */
         height: 90vh;
         padding: 1.5rem;
     }
